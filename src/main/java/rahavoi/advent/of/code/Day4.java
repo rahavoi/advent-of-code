@@ -12,8 +12,8 @@ public class Day4 {
     public static void main(String[] args) {
         Arrays.asList(Util.loadFileAsString("day4.txt")
                 .split("\n")).forEach(record -> {
-                    processRecordTask1(record);
-                    // processRecordTask2(record);
+                    // rocessRecordTask1(record);
+                    processRecordTask2(record);
 
                 });
 
@@ -43,14 +43,15 @@ public class Day4 {
     private static boolean containsAnagrams(List<String> words) {
         Map<String, Integer> anagrams = new HashMap<>();
 
-        words.forEach(word -> {
+        return words.stream().filter(word -> {
             char[] chars = word.toCharArray();
             Arrays.sort(chars);
             String sorted = new String(chars);
             int times = anagrams.get(sorted) == null ? 1 : anagrams.get(sorted) + 1;
             anagrams.put(sorted, times);
-        });
 
-        return anagrams.values().stream().anyMatch(value -> value > 1);
+            return times > 1;
+        }).findFirst().isPresent();
+
     }
 }
