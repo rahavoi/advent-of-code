@@ -41,7 +41,6 @@ public class Day1 {
 
     private static int getOposite(int index) {
         int half = numbers.size() / 2;
-
         int oppositeIndex = (index + half <= numbers.size() - 1) ? index + half : index + half - (numbers.size());
 
         return numbers.get(oppositeIndex);

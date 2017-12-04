@@ -12,30 +12,23 @@ public class Day4 {
     public static void main(String[] args) {
         Arrays.asList(Util.loadFileAsString("day4.txt")
                 .split("\n")).forEach(record -> {
-                    // rocessRecordTask1(record);
-                    processRecordTask2(record);
+                    List<String> words = Arrays.asList(record.split(" "));
+                    processRecordTask1(words);
+                    processRecordTask2(words);
 
                 });
 
         System.out.println(countValid);
     }
 
-    private static void processRecordTask1(String record) {
-        List<String> words = Arrays.asList(record.split(" "));
-
-        List<String> uniqueWords = words.stream().distinct().collect(Collectors.toList());
-
-        if (words.size() == uniqueWords.size()) {
+    private static void processRecordTask1(List<String> words) {
+        if (words.size() == words.stream().distinct().collect(Collectors.toList()).size()) {
             countValid++;
         }
     }
 
-    private static void processRecordTask2(String record) {
-        List<String> words = Arrays.asList(record.split(" "));
-
-        List<String> uniqueWords = words.stream().distinct().collect(Collectors.toList());
-
-        if (words.size() == uniqueWords.size() && !containsAnagrams(words)) {
+    private static void processRecordTask2(List<String> words) {
+        if (words.size() == words.stream().distinct().collect(Collectors.toList()).size() && !containsAnagrams(words)) {
             countValid++;
         }
     }
@@ -52,6 +45,5 @@ public class Day4 {
 
             return times > 1;
         }).findFirst().isPresent();
-
     }
 }

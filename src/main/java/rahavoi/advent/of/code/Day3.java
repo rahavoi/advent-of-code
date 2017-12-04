@@ -23,7 +23,6 @@ public class Day3 {
         int oddSquare = 1;
 
         while (oddSquare <= finalNum) {
-            System.out.println("Wallsize: " + wallSize);
             System.out.println(oddSquare);
             System.out.println(odd);
             odd = odd + 2;
@@ -32,7 +31,7 @@ public class Day3 {
             wallSize = wallSize + 2;
         }
 
-        // TODO: After finding the closest root, all we need is calculate the difference and steps to the entry point.
+        // TODO: After finding the closest root the rest is trivial: all we need is calculate the difference and steps to the entry point.
     };
 
     public static void task2(int sumOfLastTwoSouthElements) {
