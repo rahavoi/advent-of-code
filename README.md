@@ -1,2 +1,2 @@
 # advent-of-code
-My solutions of adventofcode.com puzzles in Java 8.
+My solutions of adventofcode.com puzzles in Java.
