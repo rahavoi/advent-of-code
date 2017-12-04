@@ -31,6 +31,8 @@ public class Day3 {
             oddSquare = odd * odd;
             wallSize = wallSize + 2;
         }
+
+        // TODO: After finding the closest root, all we need is calculate the difference and steps to the entry point.
     };
 
     public static void task2(int sumOfLastTwoSouthElements) {

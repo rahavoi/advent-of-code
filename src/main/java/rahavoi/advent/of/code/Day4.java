@@ -10,26 +10,34 @@ public class Day4 {
     private static int countValid = 0;
 
     public static void main(String[] args) {
-        // task1();
-
-        task2();
-    }
-
-    private static void task2() {
         Arrays.asList(Util.loadFileAsString("day4.txt")
                 .split("\n")).forEach(record -> {
-
-                    List<String> words = Arrays.asList(record.split(" "));
-
-                    List<String> uniqueWords = words.stream().distinct().collect(Collectors.toList());
-
-                    if (words.size() == uniqueWords.size() && !containsAnagrams(words)) {
-                        countValid++;
-                    }
+                    processRecordTask1(record);
+                    // processRecordTask2(record);
 
                 });
 
         System.out.println(countValid);
+    }
+
+    private static void processRecordTask1(String record) {
+        List<String> words = Arrays.asList(record.split(" "));
+
+        List<String> uniqueWords = words.stream().distinct().collect(Collectors.toList());
+
+        if (words.size() == uniqueWords.size()) {
+            countValid++;
+        }
+    }
+
+    private static void processRecordTask2(String record) {
+        List<String> words = Arrays.asList(record.split(" "));
+
+        List<String> uniqueWords = words.stream().distinct().collect(Collectors.toList());
+
+        if (words.size() == uniqueWords.size() && !containsAnagrams(words)) {
+            countValid++;
+        }
     }
 
     private static boolean containsAnagrams(List<String> words) {
@@ -44,22 +52,5 @@ public class Day4 {
         });
 
         return anagrams.values().stream().anyMatch(value -> value > 1);
-    }
-
-    private static void task1() {
-        Arrays.asList(Util.loadFileAsString("day4.txt")
-                .split("\n")).forEach(record -> {
-
-                    List<String> words = Arrays.asList(record.split(" "));
-
-                    List<String> uniqueWords = words.stream().distinct().collect(Collectors.toList());
-
-                    if (words.size() != uniqueWords.size()) {
-                        countValid++;
-                    }
-
-                });
-
-        System.out.println(countValid);
     }
 }
