@@ -9,8 +9,11 @@ import java.util.stream.Collectors;
 
 public class Day6 {
     static Set<List<Integer>> combos = new HashSet<>();
-    static int redistributionCycles = 0;
+    static int cycles = 0;
     static List<Integer> sameState;
+
+    static int maxPosition;
+    static int max;
 
     static List<Integer> nums;
 
@@ -19,28 +22,19 @@ public class Day6 {
                 .split(" +")).stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
 
         while (true) {
-            int maxPosition = getMaxPosition();
-            int max = nums.get(maxPosition);
-
-            redistribute(maxPosition, max);
-            redistributionCycles++;
+            redistribute();
 
             if (task1Check()) {
-                System.out.println("Task one is done!");
-                System.out.println("Redistribution cycles: " + redistributionCycles);
-                redistributionCycles = 0;
+                System.out.println(
+                        "Redistribution cycles before seeing a config that has been seen before: " + cycles);
+                cycles = 0;
                 sameState = new ArrayList<>(nums);
 
                 while (true) {
-                    maxPosition = getMaxPosition();
-                    max = nums.get(maxPosition);
-
-                    redistribute(maxPosition, max);
-                    redistributionCycles++;
+                    redistribute();
 
                     if (sameState.equals(nums)) {
-                        System.out.println("All done!");
-                        System.out.println(redistributionCycles);
+                        System.out.println("The size of the loop: " + cycles);
                         return;
                     }
                 }
@@ -48,6 +42,14 @@ public class Day6 {
 
         }
 
+    }
+
+    private static void redistribute() {
+        int maxPosition = getMaxPosition();
+        int max = nums.get(maxPosition);
+
+        redistribute(maxPosition, max);
+        cycles++;
     }
 
     private static boolean task1Check() {
