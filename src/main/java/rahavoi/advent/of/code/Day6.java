@@ -24,22 +24,19 @@ public class Day6 {
         while (true) {
             redistribute();
 
-            if (task1Check()) {
+            if (duplicateStateCheck()) {
                 System.out.println(
                         "Redistribution cycles before seeing a config that has been seen before: " + cycles);
                 cycles = 0;
                 sameState = new ArrayList<>(nums);
-
-                while (true) {
-                    redistribute();
-
-                    if (sameState.equals(nums)) {
-                        System.out.println("The size of the loop: " + cycles);
-                        return;
-                    }
-                }
+                continue;
             }
 
+            if (sameState != null && sameState.equals(nums)) {
+                System.out.println("The size of the loop: " + cycles);
+                return;
+
+            }
         }
 
     }
@@ -52,8 +49,8 @@ public class Day6 {
         cycles++;
     }
 
-    private static boolean task1Check() {
-        return !combos.add(new ArrayList<>(nums));
+    private static boolean duplicateStateCheck() {
+        return sameState == null && !combos.add(new ArrayList<>(nums));
     }
 
     private static void redistribute(int position, int value) {
