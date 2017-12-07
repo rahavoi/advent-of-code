@@ -51,7 +51,7 @@ public class Day7 {
     private static Program findUnbalancedTower(Program bottomProgram) {
         Set<Program> upperProgs = bottomProgram.getUpperPrograms().stream().map(programName -> programMap.get(programName)).collect(Collectors.toSet());
 
-        Map<Integer, Set<Program>> towerWeights = new HashMap();
+        Map<Integer, Set<Program>> towerWeights = new HashMap<>();
 
         upperProgs.forEach(upperProgram -> {
             int towerWeight = getTowerWeight(upperProgram);
