@@ -54,7 +54,11 @@ public class Day10 {
 
         StringBuilder sb = new StringBuilder();
         for (int num : denseHash) {
-            sb.append(Integer.toHexString(num));
+            String hex = Integer.toHexString(num);
+            if (hex.length() != 2) {
+                hex = "0" + hex;
+            }
+            sb.append(hex);
         }
 
         System.out.print(sb.toString());
