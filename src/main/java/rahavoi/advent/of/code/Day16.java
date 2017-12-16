@@ -12,15 +12,12 @@ public class Day16 {
     public static String getPositionAfterBillionDances(String input) {
         String programs = "abcdefghijklmnop";
         List<String> dances = new ArrayList<>();
-        boolean stopDance = false;
         for (int i = 0; i < 1000000000; i++) {
-            if (!stopDance) {
-                programs = dance(programs, input);
-                if (!dances.contains(programs)) {
-                    dances.add(programs);
-                } else {
-                    stopDance = true;
-                }
+            programs = dance(programs, input);
+            if (!dances.contains(programs)) {
+                dances.add(programs);
+            } else {
+                break;
             }
         }
 
