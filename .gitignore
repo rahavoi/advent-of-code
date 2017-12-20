@@ -2,3 +2,6 @@
 .project
 .settings/**
 target/**
+/.metadata/
+.idea/**
+sandbox.iml
