@@ -8,8 +8,45 @@ public class Day23 {
     static int mulCount;
 
     public static void main(String[] args) {
-        task1();
-        System.out.println(mulCount);
+        // task1();
+        // System.out.println(mulCount);
+        task2();
+    }
+
+    private static int task2() {
+        int h = 0;
+        int b = 81;
+        int c = b;
+        b = b * 100;
+        b = b + 100000;
+        c = b + 17000;
+
+        while (true) {
+            int f = 1;
+            int d = 2;
+            int e = 2;
+
+            while (true) {
+                if (b % d == 0) {
+                    f = 0;
+                }
+                d = d + 1;
+                if (d != b) {
+                    continue;
+                }
+
+                if (f == 0) {
+                    h = h + 1;
+                    System.out.println(h);
+                }
+                if (b == c) {
+                    return h;
+                }
+
+                b = b + 17;
+                break;
+            }
+        }
     }
 
     private static void task1() {
