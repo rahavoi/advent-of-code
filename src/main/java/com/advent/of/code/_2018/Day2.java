@@ -10,13 +10,13 @@ import java.util.Optional;
 
 public class Day2 {
     public static void main(String[] args){
-        //new Day2().task1();
+        new Day2().task1();
         new Day2().task2();
     }
 
     public  void task2(){
         try {
-            List<String> lines = Files.readAllLines(Paths.get("src/main/resources/Day2.txt"));
+            List<String> lines = Files.readAllLines(Paths.get("src/main/resources/2018/Day2.txt"));
 
             for(int i = 0; i < lines.size(); i++){
                 for(int j = 0; j < lines.size(); j++){
@@ -59,7 +59,7 @@ public class Day2 {
             TwosAndThrees twosAndThrees = new TwosAndThrees();
 
 
-            Files.readAllLines(Paths.get("src/main/resources/Day2.txt"))
+            Files.readAllLines(Paths.get("src/main/resources/2018/Day2.txt"))
                     .forEach(line -> {
                         Map<Character, Integer> charValues = new HashMap<>();
                         char[] chars = line.toCharArray();
