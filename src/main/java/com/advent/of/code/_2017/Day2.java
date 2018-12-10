@@ -1,4 +1,4 @@
-package rahavoi.advent.of.code._2017;
+package com.advent.of.code._2017;
 
 import java.io.IOException;
 import java.util.Arrays;

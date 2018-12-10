@@ -1,4 +1,4 @@
-package rahavoi.advent.of.code._2017;
+package com.advent.of.code._2017;
 
 public class Day10 {
     private static final int NUMBER_OF_ELEMENTS = 256;

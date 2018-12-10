@@ -1,4 +1,4 @@
-package rahavoi.advent.of.code._2017;
+package com.advent.of.code._2017;
 
 public class Day15 {
     public static void main(String[] args) {

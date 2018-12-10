@@ -1,4 +1,4 @@
-package rahavoi.advent.of.code._2017;
+package com.advent.of.code._2017;
 
 import java.util.ArrayList;
 import java.util.Arrays;

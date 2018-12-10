@@ -144,7 +144,7 @@ public class Day6 {
             return distanceToAllStartPoints < maxDistance;
         }).count();
 
-        System.out.println("Points with optimal distance: " + totalPointsWithProperDistance);
+        System.out.println("Day10 with optimal distance: " + totalPointsWithProperDistance);
 
     }
 }
