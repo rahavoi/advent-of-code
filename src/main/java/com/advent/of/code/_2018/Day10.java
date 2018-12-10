@@ -30,7 +30,7 @@ public class Day10 {
             g2d.setStroke(new BasicStroke(1));
             g2d.scale(3, 3);
 
-            System.out.println(counter++);
+            System.out.println("Seconds elapsed" + counter++);
             for (int i = 0; i < movingPoints.size(); i++) {
                 MovingPoint mp = movingPoints.get(i);
                 g2d.drawLine(mp.getX(), mp.getY(), mp.getX(), mp.getY());
