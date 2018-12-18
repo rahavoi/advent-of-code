@@ -19,6 +19,8 @@ public class Day12 {
     Map<Integer, Character> currentGenerationPot = new HashMap<>();
     Map<Integer, Character> nextGenerationPot = new HashMap<>();
 
+
+
     public static void main(String[] args) throws Exception {
         new Day12().task1();
     }
