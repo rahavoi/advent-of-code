@@ -25,7 +25,7 @@ public class Day2
 
             int min = Integer.parseInt(minMax[0]);
             int max = Integer.parseInt(minMax[1]);
-            char letter = policyParts[1].toCharArray()[0];
+            char letter = policyParts[1].charAt(0);
 
             boolean valid = partOne ? isValid1(password, letter, min, max) :
                 isValid2(password, letter, min, max);
