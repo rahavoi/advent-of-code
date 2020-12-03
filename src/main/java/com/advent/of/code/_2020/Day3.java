@@ -10,7 +10,7 @@ public class Day3
     public static void main(String[] args) throws Exception {
         Day3 day3 = new Day3();
         char[][] map = day3.getMap();
-        int[][] slopes = {{3,1}};
+        int[][] slopes = {{1,1},{3,1},{5,1},{7,1},{1,2}};
         int result = 1;
 
         for(int[] slope : slopes){
