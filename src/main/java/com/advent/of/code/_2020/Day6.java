@@ -13,15 +13,13 @@ public class Day6
 {
     public static void main(String[] args) throws Exception{
         List<List<Set<Character>>> groups = getAnswerGroups();
-        int part1 = groups.stream().mapToInt(g -> g.stream().flatMap(s -> s.stream())
-            .collect(Collectors.toSet()).size()).sum();
+        int part1 = groups.stream().mapToInt(g -> g.stream().flatMap(s -> s.stream()).collect(Collectors.toSet()).size()).sum();
 
         int part2 = groups.stream().mapToInt(g -> {
                 Set<Character> common = g.get(0);
 
                 for(int i = 1; i < g.size(); i++){
-                    common = common.stream().filter(g.get(i)::contains)
-                        .collect(Collectors.toSet());
+                    common = common.stream().filter(g.get(i)::contains).collect(Collectors.toSet());
                 }
 
                 return common.size();
