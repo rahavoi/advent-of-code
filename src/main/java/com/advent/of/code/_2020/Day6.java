@@ -12,46 +12,24 @@ import java.util.stream.Collectors;
 public class Day6
 {
     public static void main(String[] args) throws Exception{
-        part1();
-        part2();
-    }
+        List<List<Set<Character>>> groups = getAnswerGroups();
+        int part1 = groups.stream().mapToInt(g -> g.stream().flatMap(s -> s.stream())
+            .collect(Collectors.toSet()).size()).sum();
 
-    private static void part1() throws IOException
-    {
-        List<List<Set<Character>>> allGroups = getAnswerGroups();
+        int part2 = groups.stream().mapToInt(g -> {
+                Set<Character> common = g.get(0);
 
-        int sum = 0;
-        for(List<Set<Character>> group : allGroups){
+                for(int i = 1; i < g.size(); i++){
+                    common = common.stream().filter(g.get(i)::contains)
+                        .collect(Collectors.toSet());
+                }
 
-            Set<Character> superSet = group.get(0);
-
-            for(int i = 1; i < group.size(); i++){
-                superSet.addAll(group.get(i));
+                return common.size();
             }
+        ).sum();
 
-            sum += superSet.size();
-        }
-
-        System.out.println(sum);
-    }
-
-    private static void part2() throws IOException{
-        List<List<Set<Character>>> allGroups = getAnswerGroups();
-
-        int sum = 0;
-        for(List<Set<Character>> gr : allGroups){
-            Set<Character> common = gr.get(0);
-
-            for(int i = 1; i < gr.size(); i++){
-                common = common.stream()
-                    .filter(gr.get(i)::contains)
-                    .collect(Collectors.toSet());
-            }
-
-            sum += common.size();
-        }
-
-        System.out.println(sum);
+        System.out.println(part1);
+        System.out.println(part2);
     }
 
     private static List<List<Set<Character>>> getAnswerGroups() throws IOException
