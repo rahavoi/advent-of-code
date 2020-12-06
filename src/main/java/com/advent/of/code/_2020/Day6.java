@@ -48,7 +48,7 @@ public class Day6
                     .collect(Collectors.toSet());
             }
 
-            sum+=common.size();
+            sum += common.size();
         }
 
         System.out.println(sum);
@@ -57,7 +57,6 @@ public class Day6
     private static List<List<Set<Character>>> getAnswerGroups() throws IOException
     {
         List<List<Set<Character>>> allGroups = new ArrayList<>();
-
         List<Set<Character>> group = new ArrayList<>();
 
         for(String line : Files.readAllLines(Paths.get("src/main/resources/2020/Day6.txt"))){
@@ -66,10 +65,11 @@ public class Day6
                 group = new ArrayList<>();
             } else {
                 Set<Character> answer = new HashSet<>();
-                group.add(answer);
                 for(char c : line.toCharArray()){
                     answer.add(c);
                 }
+
+                group.add(answer);
             }
         }
 
