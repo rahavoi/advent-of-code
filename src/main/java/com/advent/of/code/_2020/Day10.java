@@ -56,11 +56,17 @@ public class Day10 extends Day
         Collections.sort(jolts);
         jolts.add(jolts.get(jolts.size() - 1) + 3); //add the device to the end of the chain
 
-        Map<Integer, Node> joltsToAdaptor = new HashMap<>();
-        jolts.forEach(j -> joltsToAdaptor.put(j, new Node(j)));
+        Map<Integer, Adaptor> joltsToAdaptor = new HashMap<>();
+        jolts.forEach(j -> joltsToAdaptor.put(j, new Adaptor(j)));
 
         joltsToAdaptor.values().forEach(a -> a.setPossibleAdaptors(joltsToAdaptor));
+        //saveAsCsv(joltsToAdaptor);
 
+        return joltsToAdaptor.get(0).countPathsToDestination();
+    }
+
+    private static void saveAsCsv(Map<Integer, Adaptor> joltsToAdaptor) throws IOException
+    {
         StringJoiner sj = new StringJoiner("\n");
         joltsToAdaptor.values().forEach(a -> {
             a.destinations.forEach(d -> {
@@ -69,43 +75,20 @@ public class Day10 extends Day
 
         });
         Files.writeString(Paths.get("src/main/resources/2020/Day10_graph.csv"), sj.toString());
-
-        return joltsToAdaptor.get(0).countPathsToDestination();
     }
 
-    /*
-        //Solved by transforming the program to csv and uploading it to Neo4j:
-
-        /*
-
-        LOAD CSV WITH HEADERS FROM "file:///tmp2.csv" AS row
-        WITH row
-        MERGE (p:Object{name: row.PLANET})
-        MERGE (s:Object{name: row.SATELLITE})
-        MERGE (s)-[r:ORBITS]->(p)
-
-         */
-
-    //Solution in Cypher:
-
-    //Part 1
-    //MATCH p=(s:Object)-[r:ORBITS *]->(o:Object{name:'COM'}) RETURN sum(length(p))
-
-    //Part 2:
-    //MATCH p=(me:Object{name:'YOU'})-[r:ORBITS *]-(santa:Object{name:'SAN'}) RETURN length(p) - 2;
-
-    static class Node
+    static class Adaptor
     {
         int jolts;
-        List<Node> destinations = new ArrayList<>();
+        List<Adaptor> destinations = new ArrayList<>();
         Long combinations;
 
-        public Node(int jolts)
+        public Adaptor(int jolts)
         {
             this.jolts = jolts;
         }
 
-        public void setPossibleAdaptors(Map<Integer, Node> joltsToAdapter){
+        public void setPossibleAdaptors(Map<Integer, Adaptor> joltsToAdapter){
             IntStream.rangeClosed(1, 3).forEach(i -> {
                 if(joltsToAdapter.containsKey(jolts + i)){
                     destinations.add(joltsToAdapter.get(jolts + i));
@@ -122,7 +105,7 @@ public class Day10 extends Day
                 return 1L;
             }
 
-            combinations = destinations.stream().mapToLong(Node::countPathsToDestination).sum();
+            combinations = destinations.stream().mapToLong(Adaptor::countPathsToDestination).sum();
             return combinations;
         }
     }
