@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Day13 extends Day
-{
-    public static void main(String[] args) throws Exception
-    {
+public class Day13 extends Day {
+    public static void main(String[] args) throws Exception {
         List<String> lines = lines("src/main/resources/2020/Day13.txt");
 
         System.out.println("Part1: " + part1(lines));
@@ -21,15 +19,12 @@ public class Day13 extends Day
         System.out.println("Time elapsed: " + (System.currentTimeMillis() - start) + " ms");
     }
 
-    private static long part2(List<String> lines)
-    {
+    private static long part2(List<String> lines) {
         Map<Integer, Long> delayToBusId = new HashMap<>();
 
-        String[] parts = lines.get(1)
-            .split(",");
+        String[] parts = lines.get(1).split(",");
 
-        for (int i = 0; i < parts.length; i++)
-        {
+        for (int i = 0; i < parts.length; i++) {
             if (!parts[i].equals("x"))
             {
                 delayToBusId.put(i + 1, Long.parseLong(parts[i]));
@@ -39,62 +34,47 @@ public class Day13 extends Day
         List<Integer> orderedDelays = new ArrayList<>(delayToBusId.keySet());
         Collections.sort(orderedDelays);
 
-        //TODO: There must be a better way to solve it.  ¯\_(ツ)_/¯
         long increment = 1;
         long multiplier = 1;
 
         Long previousIterations = null;
 
         int matchAtLeast = 2;
+        //TODO: There must be a better way to solve it.  ¯\_(ツ)_/¯
         outer:
-        while (true)
-        {
+        while (true) {
             Long first = delayToBusId.get(orderedDelays.get(0)) * multiplier;
 
-            if (first % delayToBusId.get(orderedDelays.get(0)) == 0)
-            {
-
-                for (int i = 1; i < orderedDelays.size(); i++)
-                {
-
-                    if (!((orderedDelays.get(i) + first) % delayToBusId.get(orderedDelays.get(i)) == 1))
-                    {
+            if (first % delayToBusId.get(orderedDelays.get(0)) == 0) {
+                for (int i = 1; i < orderedDelays.size(); i++) {
+                    if (!((orderedDelays.get(i) + first) % delayToBusId.get(orderedDelays.get(i)) == 1)) {
                         multiplier += increment;
                         continue outer;
-                    }
-                    else
-                    {
-                        if (i == matchAtLeast - 1)
-                        {
+                    } else if (i == matchAtLeast - 1) {
 
-                            if (previousIterations == null)
-                            {
-                                previousIterations = multiplier;
-                            }
-                            else
-                            {
-                                //Speed up increment
-                                increment = multiplier - previousIterations;
-                                matchAtLeast++;
-                                previousIterations = null;
-                                System.out.println(
-                                    i + 1 + " buses depart at matching offsets after " + multiplier + " iterations!");
-                            }
+                        if (previousIterations == null) {
+                            previousIterations = multiplier;
+                        }
+                        else {
+                            //Speed up increment
+                            increment = multiplier - previousIterations;
+                            matchAtLeast++;
+                            previousIterations = null;
+                            System.out.println(
+                                i + 1 + " buses depart at matching offsets after " + multiplier + " iterations!");
                         }
                     }
                 }
 
                 return first;
             }
-            else
-            {
+            else {
                 multiplier += increment;
             }
         }
     }
 
-    private static int part1(List<String> lines)
-    {
+    private static int part1(List<String> lines) {
         int timestamp = Integer.parseInt(lines.get(0));
 
         return Arrays.asList(lines.get(1)
