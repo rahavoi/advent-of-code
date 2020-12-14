@@ -42,7 +42,7 @@ public class Day13 extends Day {
         int matchAtLeast = 2;
         //TODO: There must be a better way to solve it.  ¯\_(ツ)_/¯
         outer:
-        while (true) {
+        while (matchAtLeast < orderedDelays.size() + 1) {
             Long first = delayToBusId.get(orderedDelays.get(0)) * multiplier;
 
             if (first % delayToBusId.get(orderedDelays.get(0)) == 0) {
@@ -72,6 +72,8 @@ public class Day13 extends Day {
                 multiplier += increment;
             }
         }
+
+        throw new RuntimeException("Should never happen");
     }
 
     private static int part1(List<String> lines) {
