@@ -38,7 +38,7 @@ public class Day15 extends Day {
                     System.out.println("Part1: " + next);
                 }
 
-                if(i > iterations - 2){
+                if(i == iterations - 2){
                     System.out.println("Part2: " + next);
                 }
 
