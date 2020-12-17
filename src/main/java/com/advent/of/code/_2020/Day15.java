@@ -1,13 +1,12 @@
 package com.advent.of.code._2020;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Day15 extends Day {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         int[] n = {9,3,1,0,8,4};
 
         long start = System.currentTimeMillis();
