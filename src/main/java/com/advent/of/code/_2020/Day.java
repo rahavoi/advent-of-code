@@ -7,8 +7,12 @@ import java.util.List;
 
 public abstract class Day
 {
-    public static List<String> lines(String path) throws IOException
+    public static List<String> lines(String path)
     {
-        return Files.readAllLines(Paths.get(path));
+        try{
+            return Files.readAllLines(Paths.get(path));
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }
