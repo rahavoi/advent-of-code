@@ -52,9 +52,6 @@ public class Day20 extends Day
         //Needed for test input:
         //tiles.put(firstCornerId, mirrorHorizontally(tiles.get(firstCornerId)));
 
-        System.out.println("First corner: " + firstCornerId);
-
-
         while (findBottom(firstCornerId) == null){
             System.out.println("Bummer");
             rotateMatrix(tiles.get(firstCornerId));
@@ -66,7 +63,7 @@ public class Day20 extends Day
             process();
         }
 
-        printPicture(arrangedIds);
+        print(arrangedIds);
 
         List<List<Character>> assembledPicture = new ArrayList<>();
         for(int i = 0; i < arrangedIds.length; i++){
@@ -90,7 +87,6 @@ public class Day20 extends Day
 
         }
 
-
         //Picture:
         char[][] monochrome = new char[assembledPicture.size()][assembledPicture.size()];
         for(int i = 0; i < assembledPicture.size(); i++){
@@ -112,10 +108,6 @@ public class Day20 extends Day
 
         System.out.println("Size: " + assembledPicture.size() + " by " + assembledPicture.get(0).size());
 
-
-        int y = 0;
-        int x;
-
         monochrome = mirrorHorizontally(monochrome);
         rotateMatrix(monochrome);
         rotateMatrix(monochrome);
@@ -123,29 +115,33 @@ public class Day20 extends Day
 
         int oneMonster = 15;
         int countMonsters = 0;
-        for(int j = 2; j < monochrome.length; j++){
-            x = 0;
-            for(int i = 19; i< monochrome.length; i++){
+        for(int y = 0; y < monochrome.length - 2; y++){
+            for(int x = 0; x< monochrome.length - 19; x++){
 
                 char[] firstRow = monochrome[y];
                 char[] secondRow = monochrome[y + 1];
                 char[] thirdRow = monochrome[y + 2];
 
-                System.out.println("X min: " + x + "X max: " + (x + 19) + "Y min " + y + " Y max: " + (y + 2));
                 if(firstRow[x + 18] == '#' &&
-                    secondRow[x] == '#' && secondRow[x + 5] == '#' && secondRow[x + 6] == '#' && secondRow[x + 11] == '#' && secondRow[x + 12] == '#' &&
-                    secondRow[x + 17] == '#' && secondRow[x + 18] == '#' && secondRow[x + 19] == '#'  &&
-                    thirdRow[x + 1] == '#' && thirdRow[x + 4] == '#' && thirdRow[x + 7] == '#' && thirdRow[x + 10] == '#' && thirdRow[x + 13] == '#' && thirdRow[x + 16] == '#')
+                    secondRow[x] == '#' &&
+                    secondRow[x + 5] == '#' &&
+                    secondRow[x + 6] == '#' &&
+                    secondRow[x + 11] == '#' &&
+                    secondRow[x + 12] == '#' &&
+                    secondRow[x + 17] == '#' &&
+                    secondRow[x + 18] == '#' &&
+                    secondRow[x + 19] == '#'  &&
+                    thirdRow[x + 1] == '#' &&
+                    thirdRow[x + 4] == '#' &&
+                    thirdRow[x + 7] == '#' &&
+                    thirdRow[x + 10] == '#' &&
+                    thirdRow[x + 13] == '#' &&
+                    thirdRow[x + 16] == '#')
 
                 {
                     countMonsters++;
                 }
-
-                x++;
-
-
             }
-            y++;
         }
 
         System.out.println("Found Monsters: " + countMonsters);
@@ -163,7 +159,7 @@ public class Day20 extends Day
         Assert.assertTrue(neighbors.size() <= 2);
 
         if(processed.contains(cornerId)){
-            System.out.println("Already processed.. " + cornerId);
+            //System.out.println("Already processed.. " + cornerId);
             return;
         }
 
@@ -171,9 +167,9 @@ public class Day20 extends Day
         processed.add(cornerId);
 
 
-        System.out.println("Corner pos : " + cornerX + " " + cornerY);
+        //System.out.println("Corner pos : " + cornerX + " " + cornerY);
         if(processed.size() == arrangedIds.length * arrangedIds.length){
-            System.out.println("Processed all");
+            //System.out.println("Processed all");
             return;
         }
 
@@ -208,23 +204,6 @@ public class Day20 extends Day
         if(bottom != null){
             queue.add(new ProcessingInfo(bottom, cornerY + 1, cornerX));
         }
-
-        //Assert.assertTrue(neighbors.size() == 0);
-
-        //Integer adjacentId = bottomNeighbors.stream().filter(n -> rightNeigbors.contains(n)).findFirst().get();
-
-        //Integer test = findBottom(right);
-        //Assert.assertEquals(adjacentId, test);
-
-        //bottomNeighbors.remove(adjacentId);
-        //rightNeigbors.remove(adjacentId);
-
-        //arrangedIds[cornerY + 1][cornerX + 1] = adjacentId;
-        //processed.add(adjacentId);
-
-
-
-
     }
 
     static Integer findRight(Integer id, Integer bottomId){
@@ -234,15 +213,13 @@ public class Day20 extends Day
         rotateMatrix(corner);
         List<Integer> neighbors = tileToNeighbors.get(id);
 
-
-
         for(Integer neighborId : neighbors){
             char [][] candidate = tiles.get(neighborId);
             for(int r = 0; r < 2; r++){
                 for(int i = 0; i < 2; i++){
                     for(int j = 0; j < 4; j++){
                         if(Arrays.equals(corner[0], candidate[0])){
-                            System.out.println("To the right of " + id + " is " + neighborId);
+                            //System.out.println("To the right of " + id + " is " + neighborId);
 
                             //Rotate corner 3 more times to put it in initial position:
                             rotateMatrix(corner);
@@ -257,8 +234,8 @@ public class Day20 extends Day
                             return  neighborId;
                         } else {
                             //System.out.println("Didn't match:" + neighborId);
-                            //printPicture(corner);
-                            //printPicture(candidate);
+                            //print(corner);
+                            //print(candidate);
 
                             //System.out.println("Rotating " + neighborId);
                             rotateMatrix(candidate);
@@ -268,7 +245,7 @@ public class Day20 extends Day
                     //System.out.println("Flipping " + neighborId);
                     candidate = mirrorHorizontally(candidate);
                 }
-                //Bad corner orientation.. have to flip it along with the bottom piece..
+                //Bad corner orientation
                 throw new IllegalArgumentException("Damnit. could not match " + id + " with " + neighborId);
             }
         }
@@ -291,7 +268,7 @@ public class Day20 extends Day
             for(int r = 0; r < 2; r++){
                 for(int i = 0; i < 4; i++){
                     if(Arrays.equals(corner[0], candidate[0])){
-                        System.out.println("To the bottom of " + id + " is " + neighborId);
+                        //System.out.println("To the bottom of " + id + " is " + neighborId);
                         //Rotate corner twice to move the bottom part where it belongs.
                         rotateMatrix(corner);
                         rotateMatrix(corner);
@@ -313,12 +290,9 @@ public class Day20 extends Day
             }
         }
 
-
         rotateMatrix(corner);
         rotateMatrix(corner);
         return null;
-
-
     }
 
     private static Map<Integer, List<Integer>> getTileNeighbors(Map<Integer, char[][]> tiles)
@@ -328,7 +302,6 @@ public class Day20 extends Day
         tiles.entrySet().forEach(entry -> {
             int pieceId = entry.getKey();
             char[][] currentPiece = entry.getValue();
-
 
             List<Integer> neighbors = new ArrayList<>();
 
@@ -349,11 +322,6 @@ public class Day20 extends Day
                                     //mirrorHorizontally(candidate);
 
                                     break outer;
-                                } else{
-                                    //System.out.println("Mismatch");
-                                    //printRow(currentPiece[0]);
-                                    //printRow(candidatePiece[0]);
-                                    //System.out.println();
                                 }
 
                                 //System.out.println("Rotating candidate " + candidate.getKey());
@@ -416,7 +384,7 @@ public class Day20 extends Day
         char[][] horizontalImage = mirrorHorizontally(tile);
 
         entry.setValue(horizontalImage);
-        //printPicture(horizontalImage);
+        //print(horizontalImage);
     }
 
     private static char[][] mirrorHorizontally(char[][] in)
@@ -460,45 +428,7 @@ public class Day20 extends Day
         }
     }
 
-    static void rotateMatrix(int mat[][])
-    {
-        int N = mat.length;
-        // Consider all squares one by one
-        for (int x = 0; x < N / 2; x++) {
-            // Consider elements in group
-            // of 4 in current square
-            for (int y = x; y < N - x - 1; y++) {
-                // Store current cell in
-                // temp variable
-                int temp = mat[x][y];
-
-                // Move values from right to top
-                mat[x][y] = mat[y][N - 1 - x];
-
-                // Move values from bottom to right
-                mat[y][N - 1 - x]
-                    = mat[N - 1 - x][N - 1 - y];
-
-                // Move values from left to bottom
-                mat[N - 1 - x][N - 1 - y] = mat[N - 1 - y][x];
-
-                // Assign temp to left
-                mat[N - 1 - y][x] = temp;
-            }
-        }
-    }
-
-    static void printPicture(char[][] pic){
-        for(char[] row : pic){
-            for(char c : row){
-                System.out.print(c);
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    static void printPicture(int[][] pic){
+    static void print(int[][] pic){
         for(int[] row : pic){
             for(int c : row){
                 System.out.print(c);
