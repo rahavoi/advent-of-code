@@ -25,7 +25,6 @@ public class Day5 {
         int[][] grid = new int[maxY + 1][maxX + 1];
 
         fillGrid(grid, lines);
-        //print(grid);
 
         System.out.println(countOverlaps(grid));
 
@@ -44,19 +43,11 @@ public class Day5 {
         return result;
     }
 
-    static void print(int[][] grid){
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[0].length; j++){
-                System.out.print(grid[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
     static void fillGrid(int[][] grid, List<Line> lines){
         lines.forEach(line -> {
             if(line.from.x != line.to.x && line.from.y != line.to.y){
-                //Diagonal at 45 degrees
+                //Ignored for part 1.
+                //Part 2: Diagonal at 45 degrees
                 Point a = line.from.y > line.to.y ? line.to : line.from;
                 Point b = a == line.from ? line.to : line.from;
 
@@ -81,7 +72,6 @@ public class Day5 {
                     Point a = line.from.y > line.to.y ? line.to : line.from;
                     Point b = a == line.from ? line.to : line.from;
 
-
                     int x = a.x;
                     int y = a.y;
 
@@ -89,7 +79,6 @@ public class Day5 {
                         addPoint(grid, x, y);
                         y++;
                     }
-
 
                 } else {
                     //Horizontal line
@@ -105,12 +94,10 @@ public class Day5 {
                     }
                 }
             }
-
         });
     }
 
     static void addPoint(int[][] grid, int x, int y){
-        //System.out.println("Adding : " + x + " , " + y);
         grid[y][x] = grid[y][x]  + 1;
     }
 
