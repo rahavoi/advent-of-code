@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Day7 {
     public static void main(String[] args) throws Exception {
@@ -13,33 +14,11 @@ public class Day7 {
             .map(Integer::parseInt)
             .collect(Collectors.toList());
 
-        long result = Long.MAX_VALUE;
-
-        Integer min = Collections.min(nums);
-        Integer max = Collections.max(nums);
-
-        for(int i = min; i < max; i++){
-            //System.out.println("moving to " + i);
-
-            long cost = 0;
-            for(int j = 0; j < nums.size(); j++){
-                int num = nums.get(j);
-                //System.out.println("Move from " + num + " to " + j);
-
-
-                int steps =  Math.abs(num - i);
-
-                for(int z = 0; z < steps; z++){
-                    cost += (z + 1);
-                }
-            }
-
-            //System.out.println("Fuel: " + cost);
-            result = Math.min(cost, result);
-        }
+        Long result = IntStream.range(Collections.min(nums), Collections.max(nums))
+            .mapToLong(n -> nums.stream().map(num -> Math.abs(num - n)).mapToLong(steps -> ((long) steps * (steps + 1)) / 2)
+            .sum())
+            .min().getAsLong();
 
         System.out.println(result);
-
-
     }
 }
