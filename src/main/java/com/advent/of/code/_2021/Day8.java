@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class Day8 {
     public static void main(String[] args) throws Exception {
         List<String> input = Files.readAllLines(Paths.get("/Users/illiarahavoi/work/tmp/advent_2021/advent-of-code/src/main/resources/2021/Day8.txt"));
-        part1(input);
-        part2(input);
+        System.out.println(part1(input));
+        System.out.println(part2(input));
     }
 
     public static boolean containsAllChars(String container, String containee) {
@@ -24,8 +24,8 @@ public class Day8 {
         return s.chars().mapToObj(e -> (char) e ).collect(Collectors.toSet());
     }
 
-    private static void part2(List<String> input){
-        Integer result = input.stream().mapToInt(l -> {
+    private static int part2(List<String> input){
+        return input.stream().mapToInt(l -> {
             String[] parts = l.split("\\|");
             String[] in = parts[0].trim().split(" ");
             String[] out = parts[1].trim().split(" ");
@@ -34,28 +34,16 @@ public class Day8 {
 
             Arrays.stream(in)
                 .forEach(d -> {
-                    if(d.length() == 2){
-                        map.put(1, d);
-                    }
-
-                    if(d.length() == 4){
-                        map.put(4, d);
-                    }
-
-                    if(d.length() == 3){
-                        map.put(7, d);
-                    }
-
-                    if(d.length() == 7){
-                        map.put(8, d);
-                    }
+                    if(d.length() == 2) map.put(1, d);
+                    if(d.length() == 4) map.put(4, d);
+                    if(d.length() == 3) map.put(7, d);
+                    if(d.length() == 7) map.put(8, d);
                 });
 
             String six = Arrays.stream(in).filter(d -> d.length() == 6)
                 .filter(d -> !containsAllChars(d, map.get(7)))
                 .findFirst().get();
             map.put(6, six);
-
 
             String zero = Arrays.stream(in).filter(d -> d.length() == 6)
                 .filter(d -> !containsAllChars(d, map.get(4)))
@@ -99,21 +87,12 @@ public class Day8 {
 
             return Integer.parseInt(sb.toString());
         }).sum();
-
-        System.out.println(result);
     }
 
-    private static void part1(List<String> input) {
-        int r = input.stream().mapToInt(l -> {
-            String[] output = l.split("\\|")[1].trim().split(" ");
-
-
-            return Arrays.stream(output)
+    private static int part1(List<String> input) {
+        return input.stream().mapToInt(l -> Arrays.stream(l.split("\\|")[1].trim().split(" "))
                 .mapToInt(e -> e.length() == 2 || e.length() == 4 || e.length() == 3 || e.length() == 7 ? 1 : 0)
-                .sum();
-
-        }).sum();
-
-        System.out.println(r);
+                .sum())
+            .sum();
     }
 }
