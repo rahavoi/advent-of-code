@@ -37,16 +37,11 @@ public class Day8 {
                     if(d.length() == 7){
                         map.put(8, d);
                     }
-
-                    if(d.length() == 7){
-                        map.put(8, d);
-                    }
                 });
 
             String six = Arrays.stream(in).filter(d -> d.length() == 6)
                 .filter(d -> !containsAllChars(d, map.get(7)))
                 .findFirst().get();
-
             map.put(6, six);
 
 
@@ -54,55 +49,42 @@ public class Day8 {
                 .filter(d -> !containsAllChars(d, map.get(4)))
                 .filter(d -> !d.equals(six))
                 .findFirst().get();
-
             map.put(0, zero);
 
             String nine = Arrays.stream(in).filter(d -> d.length() == 6)
                 .filter(d -> !d.equals(six))
                 .filter(d -> !d.equals(zero))
                 .findFirst().get();
-
             map.put(9, nine);
 
-            //six contains all chars of 5
             String five = Arrays.stream(in).filter(d -> d.length() == 5)
                 .filter(d -> containsAllChars(six, d))
                 .findFirst().get();
-
             map.put(5, five);
 
-            //three contains all chars of 7
             String three = Arrays.stream(in).filter(d -> d.length() == 5)
                 .filter(d -> containsAllChars(d, map.get(7)))
                 .findFirst().get();
-
             map.put(3, three);
 
-            //two
             String two = Arrays.stream(in).filter(d -> d.length() == 5)
                 .filter(d -> !d.equals(three))
                 .filter(d -> !d.equals(five))
                 .findFirst().get();
-
             map.put(2, two);
-
 
             StringBuilder sb = new StringBuilder();
 
             Arrays.stream(out).forEach(e -> {
-                //System.out.println("Getting digit for " + e);
                 Integer key = map.entrySet().stream()
                     .filter(entry -> entry.getValue().length() ==  e.length() && containsAllChars(entry.getValue(), e))
                     .mapToInt(entry -> entry.getKey())
                     .findFirst()
                     .getAsInt();
 
-                //System.out.println(key);
-
                 sb.append(key);
             });
 
-            //System.out.println(sb());
             return Integer.parseInt(sb.toString());
         }).sum();
 
