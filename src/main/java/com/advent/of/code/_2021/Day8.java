@@ -4,10 +4,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Day8 {
     public static void main(String[] args) throws Exception {
@@ -21,11 +21,7 @@ public class Day8 {
     }
 
     public static Set<Character> stringToCharacterSet(String s) {
-        Set<Character> set = new HashSet<>();
-        for (char c : s.toCharArray()) {
-            set.add(c);
-        }
-        return set;
+        return s.chars().mapToObj(e -> (char) e ).collect(Collectors.toSet());
     }
 
     private static void part2(List<String> input){
