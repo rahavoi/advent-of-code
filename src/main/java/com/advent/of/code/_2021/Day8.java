@@ -12,7 +12,23 @@ import java.util.Set;
 public class Day8 {
     public static void main(String[] args) throws Exception {
         List<String> input = Files.readAllLines(Paths.get("/Users/illiarahavoi/work/tmp/advent_2021/advent-of-code/src/main/resources/2021/Day8.txt"));
+        part1(input);
+        part2(input);
+    }
 
+    public static boolean containsAllChars(String container, String containee) {
+        return stringToCharacterSet(container).containsAll(stringToCharacterSet(containee));
+    }
+
+    public static Set<Character> stringToCharacterSet(String s) {
+        Set<Character> set = new HashSet<>();
+        for (char c : s.toCharArray()) {
+            set.add(c);
+        }
+        return set;
+    }
+
+    private static void part2(List<String> input){
         Integer result = input.stream().mapToInt(l -> {
             String[] parts = l.split("\\|");
             String[] in = parts[0].trim().split(" ");
@@ -89,34 +105,16 @@ public class Day8 {
         }).sum();
 
         System.out.println(result);
-
     }
 
-    public static boolean containsAllChars(String container, String containee) {
-        return stringToCharacterSet(container).containsAll(stringToCharacterSet(containee));
-    }
-
-    public static Set<Character> stringToCharacterSet(String s) {
-        Set<Character> set = new HashSet<>();
-        for (char c : s.toCharArray()) {
-            set.add(c);
-        }
-        return set;
-    }
-
-    private void part1() throws Exception {
-        List<String> input = Files.readAllLines(Paths.get("/Users/illiarahavoi/work/tmp/advent_2021/advent-of-code/src/main/resources/2021/Day8.txt"));
-
-
+    private static void part1(List<String> input) {
         int r = input.stream().mapToInt(l -> {
             String[] output = l.split("\\|")[1].trim().split(" ");
 
 
-            int result = Arrays.stream(output)
+            return Arrays.stream(output)
                 .mapToInt(e -> e.length() == 2 || e.length() == 4 || e.length() == 3 || e.length() == 7 ? 1 : 0)
                 .sum();
-
-            return result;
 
         }).sum();
 
