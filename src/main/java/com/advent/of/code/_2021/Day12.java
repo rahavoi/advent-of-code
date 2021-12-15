@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Day12 {
-    static Map<String, Set<String>> fromToMap;
+    static Map<String, Set<String>> fromToMap = new HashMap<>();
     static Set<List<String>> allPaths = new HashSet<>();
 
     public static void main(String[] args) throws Exception {
@@ -21,8 +21,6 @@ public class Day12 {
     }
 
     private static void parseData() throws IOException {
-        fromToMap = new HashMap<>();
-
         Files.readAllLines(Paths.get("/Users/illiarahavoi/work/tmp/advent_2021/advent-of-code/src/main/resources/2021/Day12.txt")).forEach(line -> {
             String[] parts = line.split("-");
             String a = parts[0];
@@ -39,7 +37,7 @@ public class Day12 {
     }
 
     public static void visitCave(String cave, List<String> path, Map<String, Integer> visitedSmall) {
-        if(cave.equals("start") || visitedSmall.getOrDefault(cave, 0) > 2){
+        if(cave.equals("start")){
             return;
         }
 
