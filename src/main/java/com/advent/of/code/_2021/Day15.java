@@ -53,6 +53,7 @@ public class Day15 {
         q.add(new DistanceInfo(start, 0L));
 
         while(!q.isEmpty()){
+            //TODO: I am using Dijkstra here and it's super slow for part 2. I think A* will do better here?
             findDistanceFromStart(q);
         }
 
@@ -75,6 +76,8 @@ public class Day15 {
 
     }
 
+    //TODO: this is redundant: we do not need to build this huge 2d array.
+    // It is possible to figure out which "tile" a point belongs to by just looking at it's coordinates.
     private static int[][] createMap(int[][] firstTile){
 
         List<StringBuilder> map = new ArrayList<>();
@@ -133,7 +136,6 @@ public class Day15 {
     }
 
     private static int[][] getNextTile(int[][] tile, int increment){
-        //System.out.println("Increment: " + increment);
         int[][] nextTile = new int[tile.length][tile[0].length];
 
         for(int i = 0; i < tile.length; i++) {
@@ -165,7 +167,6 @@ public class Day15 {
             Long knownDistance = distancesFromStart.getOrDefault(neighbor, Long.MAX_VALUE);
 
             if(knownDistance > newDistance) {
-                //System.out.println("New cost to " + neighbor.x + "," + neighbor.y + " is : " + newDistance);
                 childToParent.put(neighbor, p);
                 distancesFromStart.put(neighbor, newDistance);
                 q.add(new DistanceInfo(neighbor, newDistance));
