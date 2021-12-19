@@ -42,10 +42,7 @@ public class Day18 {
 
     private static Node parse(String input){
         pos = 0;
-        Node node = parse(input.substring(1, input.length() -1).toCharArray());
-        pos = 0;
-
-        return node;
+        return parse(input.substring(1, input.length() -1).toCharArray());
     }
 
     static Node parse(char[] input){
@@ -79,14 +76,12 @@ public class Day18 {
         }
 
         return node;
-
     }
 
     static class Node {
         Node parent;
         Node left;
         Node right;
-
         int val; // only leaf nodes have it
 
         public Node(){}
@@ -97,11 +92,6 @@ public class Day18 {
 
         boolean isLeaf(){
             return left == null && right == null;
-        }
-
-
-        void print(){
-            print(0);
         }
 
         void reduce(){
@@ -116,7 +106,6 @@ public class Day18 {
                 //keep reducing
                 reduce();
             }
-            //print();
         }
 
         long getMagnitude(){
@@ -138,7 +127,6 @@ public class Day18 {
             if(leftMostPairAtLevel4.isPresent()){
                 Node leftMost4 = leftMostPairAtLevel4.get();
 
-                //TODO: update leftmost leaf, if any, by adding left value
                 int leftVal = leftMost4.left.val;
 
                 Optional<Node> nodeToAddLeftVal = leftMost4.parent.left != leftMost4 ?
@@ -147,8 +135,6 @@ public class Day18 {
 
                 nodeToAddLeftVal.ifPresent(n -> addToRightMostLeaf(n, leftVal));
 
-
-                //TODO: update rightmost leaf, if any, by adding right value
                 int rightVal = leftMost4.right.val;
                 Optional<Node> nodeToAddRightVal = leftMost4.parent.right != leftMost4 ?
                     Optional.of(leftMost4.parent.right) :
@@ -161,12 +147,10 @@ public class Day18 {
                 leftMost4.right = null;
                 leftMost4.val = 0;
 
-                //System.out.println("Exploded");
-
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
         }
 
         void addToRightMostLeaf(Node node, int value){
@@ -223,8 +207,6 @@ public class Day18 {
                 n.right.parent = n;
                 n.val = 0;
 
-                //System.out.println("Splitted");
-
                 return true;
             } else {
                 return false;
@@ -273,8 +255,6 @@ public class Day18 {
             newNode.left = this;
             newNode.right = node;
             newNode.reduce();
-
-
 
             return newNode;
         }
