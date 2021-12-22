@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Day21 {
     static int dice = 1;
@@ -24,9 +25,6 @@ public class Day21 {
         System.out.println("Each round results in  up to " + possibleCombinations.size() + " combos for each player");
 
         part2();
-
-        90710140491134
-        190897246590017
     }
 
     private static void part2(){
@@ -77,7 +75,6 @@ public class Day21 {
     static List<GameState> getAllPossibleNextStates(GameState gameState){
         List<GameState> states = new ArrayList<>();
         possibleCombinations.stream().forEach(combo -> {
-            //0-2 are for player1, 3-5 are for player2:
             int player1Roll = Character.getNumericValue(combo.charAt(0)) + Character.getNumericValue(combo.charAt(1)) + Character.getNumericValue(combo.charAt(2));
 
             GameState newState = new GameState(gameState);
@@ -86,37 +83,37 @@ public class Day21 {
             if(newState.player1Pos > 10){ newState.player1Pos -= 10; }
             newState.player1Score += newState.player1Pos;
 
-            if(newState.player1Score < 21){
-                //Multiplying universes for each possible player 2 combo
-                possibleCombinations.stream().forEach(c ->{
-                    int player2Roll = Character.getNumericValue(c.charAt(0)) + Character.getNumericValue(c.charAt(1)) + Character.getNumericValue(c.charAt(2));
-                    GameState bothPlayersState = new GameState(newState);
-
-                    bothPlayersState.player2Pos = bothPlayersState.player2Pos + player2Roll;
-                    if(bothPlayersState.player2Pos > 10){ bothPlayersState.player2Pos -= 10; }
-
-                    bothPlayersState.player2Score += bothPlayersState.player2Pos;
-                    states.add(bothPlayersState);
-                });
-            } else {
-                //Case when player one won. No need to multiply universes anymore, as game is over
+            if(newState.player1Score >= 21){
+                //Case when player one won already. No need to multiply universes anymore, as game is over
                 states.add(newState);
+            } else {
+                //Multiplying universes for each possible player 2 combo
+                states.addAll(getAllPossibleStatesForPlayer2(newState));
             }
-
         });
 
         return states;
     }
 
+    private static List<GameState> getAllPossibleStatesForPlayer2(GameState state){
+        return possibleCombinations.stream().map(c ->{
+            int player2Roll = Character.getNumericValue(c.charAt(0)) + Character.getNumericValue(c.charAt(1)) + Character.getNumericValue(c.charAt(2));
+            GameState bothPlayersState = new GameState(state);
+
+            bothPlayersState.player2Pos = bothPlayersState.player2Pos + player2Roll;
+            if(bothPlayersState.player2Pos > 10){ bothPlayersState.player2Pos -= 10; }
+
+            bothPlayersState.player2Score += bothPlayersState.player2Pos;
+            return bothPlayersState;
+        }).collect(Collectors.toList());
+    }
+
     private static void initAllPossibleCombinations(){
         combine("");
-
-
     }
 
     private static void combine(String current){
         if(current.length() == 3){
-            //System.out.println(current);
             possibleCombinations.add(current);
         } else {
             Arrays.stream(possibleRolls).forEach(i -> combine(current + i));
