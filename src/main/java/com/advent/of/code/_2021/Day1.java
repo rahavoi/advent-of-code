@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class Day1 {
     public static void main(String[] args) throws IOException{
-        List<String> lines = Files.readAllLines(Paths.get(Constants.PATH_2021 + "Day1.txt"));
+        List<String> lines = Files.readAllLines(Paths.get(Constants.PATH + "Day1.txt"));
 
         long p1 = IntStream.range(0, lines.size() -1 )
             .filter(i -> Integer.parseInt(lines.get(i)) < Integer.parseInt(lines.get(i + 1)))

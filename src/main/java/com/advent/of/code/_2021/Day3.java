@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Day3 {
     public static void main(String[] args) throws Exception {
-        List<String> lines = Files.readAllLines(Paths.get(Constants.PATH_2021 + "Day3.txt"));
+        List<String> lines = Files.readAllLines(Paths.get(Constants.PATH + "Day3.txt"));
 
         String firstLine = lines.get(0);
 
