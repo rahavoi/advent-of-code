@@ -4,22 +4,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 public class Day1 {
-    public static void main(String[] args) throws IOException {
-        Files.readAllLines(Paths.get("/Users/irahavoi/work/repos/advent-of-code/src/main/resources/2021/Day1.txt"))
-                .forEach(System.out::println);
+    public static void main(String[] args) throws IOException{
+        List<String> lines = Files.readAllLines(Paths.get(Constants.PATH_2021 + "Day1.txt"));
 
-        Day1 day1 = new Day1();
+        long p1 = IntStream.range(0, lines.size() -1 )
+            .filter(i -> Integer.parseInt(lines.get(i)) < Integer.parseInt(lines.get(i + 1)))
+            .count();
 
-        day1.part1();
-        day1.part2();
-    }
+        long p2 = IntStream.range(2, lines.size() -1 )
+            .filter(i -> Integer.parseInt(lines.get(i - 2)) < Integer.parseInt(lines.get(i + 1)))
+            .count();
 
-    private void part1(){
-
-    }
-
-    private void part2(){
-
+        System.out.println(p1);
+        System.out.println(p2);
     }
 }
