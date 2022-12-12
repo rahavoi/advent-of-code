@@ -5,6 +5,7 @@ target/**
 /.metadata/
 .idea/**
 sandbox.iml
+*.txt
 
 src/main/java/com/advent/of/code/_2018/**
 src/main/java/com/advent/of/code/_2015/**
